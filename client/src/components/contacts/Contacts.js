@@ -3,10 +3,9 @@ import ContactContext from "../../context/contact/contactContext";
 import ContactItem from "./ContactItem";
 const Contacts = () => {
   const contactContext = useContext(ContactContext);
-  console.log("contactContext", contactContext);
-  debugger;
+
   const { contacts } = contactContext;
-  console.log("contacts from contactContext: ", contacts);
+
   return (
     <Fragment>
       {contacts.map((contact) => (
