@@ -9,6 +9,7 @@ import {
 } from "../types";
 
 export default (state, action) => {
+  debugger;
   switch (action.type) {
     case ADD_CONTACT:
       return {
