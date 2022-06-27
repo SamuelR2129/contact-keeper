@@ -64,7 +64,7 @@ router.post(
         }
       );
     } catch (err) {
-      console.error(err.message);
+      console.error("falldown", err.message);
       res.status(500).send("server error");
     }
   }

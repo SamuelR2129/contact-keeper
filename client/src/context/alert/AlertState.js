@@ -5,13 +5,11 @@ import { v4 as uuid } from "uuid";
 import { SET_ALERT, REMOVE_ALERT } from "../types";
 
 const AlertState = (props) => {
-  debugger;
   const initialState = [];
   const [state, dispatch] = useReducer(alertReducer, initialState);
 
   //set alert
   const setAlert = (msg, type, timeout = 5000) => {
-    debugger;
     const id = uuid();
     dispatch({
       type: SET_ALERT,
