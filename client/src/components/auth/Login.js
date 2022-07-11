@@ -1,6 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
+  const { setAlert } = alertContext;
+  const { login, error, clearErrors, isAuthenticated } = authContext;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+
+    if (error === "Invalid Credentials") {
+      setAlert(error, "danger");
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated]);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -14,33 +35,47 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("login submit");
+    if (email === "" || password === "") {
+      setAlert("Fill in all fields");
+    } else {
+      login({
+        email,
+        password,
+      });
+    }
   };
 
   return (
-    <div className="form-container">
+    <div className='form-container'>
       <h1>
-        Account <span className="text-primary">Login</span>
+        Account <span className='text-primary'>Login</span>
       </h1>
       <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" value={email} onChange={onChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        <div className='form-group'>
+          <label htmlFor='email'>Email</label>
           <input
-            type="password"
-            name="password"
+            type='email'
+            name='email'
+            value={email}
+            onChange={onChange}
+            required
+          />
+        </div>
+        <div className='form-group'>
+          <label htmlFor='password'>Password</label>
+          <input
+            type='password'
+            name='password'
             value={password}
             onChange={onChange}
+            required
           />
         </div>
 
         <input
-          type="submit"
-          value="Login"
-          className="btn btn-primary btn-block"
+          type='submit'
+          value='Login'
+          className='btn btn-primary btn-block'
         />
       </form>
     </div>
