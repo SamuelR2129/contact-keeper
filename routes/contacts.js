@@ -62,7 +62,7 @@ router.put("/:id", auth, async (req, res) => {
   //build  contact object
   const contactFields = {};
   if (name) contactFields.name = name;
-  if (email) contactField.email = email;
+  if (email) contactFields.email = email;
   if (phone) contactFields.phone = phone;
   if (type) contactFields.type = type;
 
@@ -73,7 +73,7 @@ router.put("/:id", auth, async (req, res) => {
 
     //make sure user owns contact
     if (contact.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: "not auth'd" });
+      return res.status(401).json({ msg: "not authorized" });
     }
 
     contact = await Contact.findByIdAndUpdate(
