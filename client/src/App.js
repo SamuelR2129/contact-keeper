@@ -11,6 +11,7 @@ import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
 import Alerts from "./components/layout/Alerts";
 import setAuthToken from "./utils/setAuthToken";
+import PrivateRoute from "./components/routing/PrivateRoute";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -27,10 +28,17 @@ const App = () => {
               <div className='container'>
                 <Alerts />
                 <Routes>
-                  <Route path='/' element={<Home />} />
-                  <Route path='/about' element={<About />} />
-                  <Route path='/register' element={<Register />} />
-                  <Route path='/login' element={<Login />} />
+                  <Route exact path='/about' element={<About />} />
+                  <Route exact path='/register' element={<Register />} />
+                  <Route exact path='/login' element={<Login />} />
+                  <Route
+                    path='/'
+                    element={
+                      <PrivateRoute>
+                        <Home />
+                      </PrivateRoute>
+                    }
+                  />
                 </Routes>
               </div>
             </Fragment>

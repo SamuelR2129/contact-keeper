@@ -15,7 +15,7 @@ const Login = () => {
       navigate("/");
     }
 
-    if (error === "Invalid Credentials") {
+    if (error === "invalid credentials") {
       setAlert(error, "danger");
       clearErrors();
     }
